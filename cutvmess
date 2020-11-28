@@ -1,0 +1,10 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+import sys
+import re
+line = sys.stdin.readline()
+while line:
+    vmessuri=re.search('(vmess://[a-zA-Z0-9=]+)', line)
+    if(vmessuri!=None):
+        print(vmessuri.group(1))
+    line = sys.stdin.readline()

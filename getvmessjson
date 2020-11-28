@@ -1,0 +1,31 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+import base64
+import sys
+import re
+def decode_base64(strg):
+    """Decode base64, padding being optional.
+
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    """
+    lens = len(strg)
+    lenx = lens - (lens % 4 if lens % 4 else 4)
+    result = base64.decodestring(strg[:lenx])
+    return result
+
+v2flag='"v":"2"'
+line = sys.stdin.readline()
+while line:
+    vmessuri=re.search('vmess://([a-zA-Z0-9=]+)', line)
+    json=''
+    if(vmessuri!=None):
+        base64str=vmessuri.group(1)
+        jsonstr = decode_base64(base64str)
+        if(v2flag in jsonstr):
+            json=jsonstr+'}'
+        else:
+            json=jsonstr+'"}'
+        print(json)
+    line = sys.stdin.readline()

@@ -1,0 +1,11 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+import sys
+import json
+line = sys.stdin.readline()
+while line:
+    line=unicode(line ,errors='ignore')
+    vmessobject = json.loads(line)
+    print(vmessobject)
+    print(vmessobject['host'])
+    line = sys.stdin.readline()
