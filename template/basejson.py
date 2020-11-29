@@ -7,7 +7,7 @@ basejsondic={
 	},
 	"inbounds": [
 		{
-			"port": 1010,
+			"port": 10107,
 			"listen": "0.0.0.0",
 			"tag": "http-inbound",
 			"protocol": "http",
@@ -21,7 +21,26 @@ basejsondic={
 				"destOverride": ["http", "tls"]
 			}
 
-		}
+		},
+                {
+                        "port": 10103,
+                        "listen": "0.0.0.0",
+                        "protocol": "dokodemo-door",
+                        "settings": {
+                            "userLevel": 0,
+                            "network": "tcp,udp",
+                            "timeout": 30,
+                            "followRedirect": True
+                        },
+                        "sniffing": {
+                            "enabled": True,
+                            "destOverride": [
+                                "http",
+                                "tls"
+                            ]
+                        }
+                }
+
 	],
 	"outbounds": [
 

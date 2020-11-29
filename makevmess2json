@@ -1,3 +1,9 @@
 #!/bin/sh
-./getrss | ./getvmessjson | ./gentarjson > config.json
+
+if [ x$1 != x ]
+then
+	./getrss | ./getvmessjson | ./gentarjson > $1
+else
+	./getrss | ./getvmessjson | ./gentarjson > config.json
+fi
 
