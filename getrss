@@ -1,7 +1,8 @@
 #!/bin/sh
 #Megasaturnv 2017-07-28
 #Url of the RSS feed
-RSS_URL=$(cat ./RSS_URL)
+path=`dirname $0`
+RSS_URL=$(cat $path/RSS_URL)
 
 curl --silent "$RSS_URL" | grep -E '(description>)'  | tail -n +4 
 
