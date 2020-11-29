@@ -1,10 +1,10 @@
 #!/bin/sh
 
-echo "cd the script path "$(cd `dirname $0`; pwd)
+path=`dirname $0`
 if [ x$1 != x ]
 then
-	$(pwd)/getrss | $(pwd)/getvmessjson | $(pwd)/gentarjson > $1
+	$path/getrss | $path/getvmessjson | $path/gentarjson > $1
 else
-	$(pwd)/getrss | $(pwd)/getvmessjson | $(pwd)/gentarjson > config.json
+	$path/getrss | $path/getvmessjson | $path/gentarjson > config.json
 fi
 
