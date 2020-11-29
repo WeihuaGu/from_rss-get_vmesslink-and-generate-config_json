@@ -1,0 +1,35 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+import sys
+import json
+from template import basejson
+from template import oneoutbound
+base=basejson.basejsondic
+basebound=oneoutbound.outbound
+proxytaglist=[]
+proxynum=0
+
+line = sys.stdin.readline()
+while line:
+    line=unicode(line ,errors='ignore')
+    vmessobject = json.loads(line)
+    boundobject = basebound.copy()
+    vnextone=boundobject["settings"]["vnext"][0]
+    vnextone["address"]=vmessobject['add']
+    vnextone["port"]=int(vmessobject['port'])
+    vnextone["users"][0]['alterId']=int(vmessobject['aid'])
+    vnextone["users"][0]['id']=vmessobject['id']
+    streamSettings=boundobject["streamSettings"]
+    streamSettings["network"]=vmessobject['net']
+    streamSettings["wsSettings"]["path"]=vmessobject['path']
+    tag="vmess"+str(proxynum)
+    boundobject["tag"]=tag
+    base["outbounds"].append(boundobject)
+    proxynum=proxynum+1
+    proxytaglist.append(tag)
+    line = sys.stdin.readline()
+
+base["routing"]['balancers'][0]["selector"]=proxytaglist
+print(json.dumps(base))
+
+
