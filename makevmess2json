@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo "cd the script path "$(cd `dirname $0`; pwd)
 if [ x$1 != x ]
 then
 	$(pwd)/getrss | $(pwd)/getvmessjson | $(pwd)/gentarjson > $1
