@@ -30,6 +30,6 @@ while line:
     line = sys.stdin.readline()
 
 base["routing"]['balancers'][0]["selector"]=proxytaglist
-print(json.dumps(base))
+print(json.dumps(base,sort_keys=True, indent=4, separators=(',', ':')))
 
 
