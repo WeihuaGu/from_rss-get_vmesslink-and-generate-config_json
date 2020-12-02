@@ -4,5 +4,5 @@
 path=`dirname $0`
 RSS_URL=$(cat $path/RSS_URL)
 
-curl --silent "$RSS_URL" | grep -E '(description>)'  | tail -n +4 
+curl --silent "$RSS_URL" | grep -E '(description>)' 
 
