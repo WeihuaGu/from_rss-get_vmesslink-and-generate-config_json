@@ -54,6 +54,11 @@ basejsondic={
 					"geoip:private"
 				]
 			},
+                        {
+                                "type": "field",
+                                "outboundTag": "direct",
+                                "domain": ["geosite:cn"]
+                        },
 			{
 				"type": "field",
 				"balancerTag": "proxylist",
