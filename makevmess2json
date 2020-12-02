@@ -3,8 +3,8 @@
 path=`dirname $0`
 if [ x$1 != x ]
 then
-	$path/getrss | $path/getvmessjson | $path/gentarjson > $1
+	$path/getrss | $path/getvmessjson | head -n 4 | $path/gentarjson > $1
 else
-	$path/getrss | $path/getvmessjson | $path/gentarjson > config.json
+	$path/getrss | $path/getvmessjson | head -n 4 | $path/gentarjson > config.json
 fi
 
