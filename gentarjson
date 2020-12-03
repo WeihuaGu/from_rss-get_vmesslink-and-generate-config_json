@@ -14,7 +14,7 @@ line = sys.stdin.readline()
 while line:
     line=unicode(line ,errors='ignore')
     vmessobject = json.loads(line)
-    boundobject = basebound.copy()
+    boundobject = copy.deepcopy(basebound)
     vnextone=boundobject["settings"]["vnext"][0]
     vnextone["address"]=vmessobject['add']
     vnextone["port"]=int(vmessobject['port'])
@@ -22,7 +22,10 @@ while line:
     vnextone["users"][0]['id']=vmessobject['id']
     streamSettings=boundobject["streamSettings"]
     streamSettings["network"]=vmessobject['net']
-    streamSettings["wsSettings"]["path"]=vmessobject['path']
+    if(vmessobject['net']=="ws"):
+        streamSettings["wsSettings"]["path"]=vmessobject['path']
+    if(vmessobject['net']!="ws"):
+        streamSettings.pop('wsSettings')
     tag="vmess"+str(proxynum)
     boundobject["tag"]=tag
     base["outbounds"].append(copy.deepcopy(boundobject))
