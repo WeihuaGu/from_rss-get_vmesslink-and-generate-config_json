@@ -1,5 +1,5 @@
 # from_rss-get_vmesslink-and-generate-config_json
-从一个RSS源，或者包含vmess链接的文本文件中，获取里面相应的vmess链接，然后生成配置json
+从一个RSS源，或者包含vmess链接的文本文件中，获取里面相应的链接，然后生成配置json
 
 ## 只支持linux，且需要安装python
 ## 使用方法
