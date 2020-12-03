@@ -3,8 +3,18 @@
 import sys
 import json
 import copy
+import os
 from template import basejson
 from template import oneoutbound
+def ipcheckfailed(ip):
+    pingreturn=os.system('ping  -w 1 %s > /dev/null'%ip)
+    if(pingreturn>0):
+        return True
+    else:
+        return False
+        
+
+
 base=basejson.basejsondic
 basebound=oneoutbound.outbound
 proxytaglist=[]
@@ -14,6 +24,9 @@ line = sys.stdin.readline()
 while line:
     line=unicode(line ,errors='ignore')
     vmessobject = json.loads(line)
+    if(ipcheckfailed(vmessobject['add'])):
+            line = sys.stdin.readline()
+            continue
     boundobject = copy.deepcopy(basebound)
     vnextone=boundobject["settings"]["vnext"][0]
     vnextone["address"]=vmessobject['add']
