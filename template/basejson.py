@@ -51,7 +51,8 @@ basejsondic={
 				"type": "field",
 				"outboundTag": "direct",
 				"ip": [
-					"geoip:private"
+					"geoip:private",
+                                        "geoip:cn"
 				]
 			},
                         {
