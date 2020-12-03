@@ -1,0 +1,10 @@
+#!/bin/sh
+
+path=`dirname $0`
+if [ x$1 != x ]
+then
+	$path/getrss | $path/getlinkjson | head -n 3 | $path/gentarjson > $1
+else
+	$path/getrss | $path/getlinkjson | head -n 3 | $path/gentarjson > config.json
+fi
+
