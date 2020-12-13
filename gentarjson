@@ -22,29 +22,36 @@ proxynum=0
 
 line = sys.stdin.readline()
 while line:
-    line=unicode(line ,errors='ignore')
-    vmessobject = json.loads(line)
-    if(ipcheckfailed(vmessobject['add'])):
+    try:
+        line=unicode(line ,errors='ignore')
+        vmessobject = json.loads(line)
+        if(ipcheckfailed(vmessobject['add'])):
             line = sys.stdin.readline()
             continue
-    boundobject = copy.deepcopy(basebound)
-    vnextone=boundobject["settings"]["vnext"][0]
-    vnextone["address"]=vmessobject['add']
-    vnextone["port"]=int(vmessobject['port'])
-    vnextone["users"][0]['alterId']=int(vmessobject['aid'])
-    vnextone["users"][0]['id']=vmessobject['id']
-    streamSettings=boundobject["streamSettings"]
-    streamSettings["network"]=vmessobject['net']
-    if(vmessobject['net']=="ws"):
-        streamSettings["wsSettings"]["path"]=vmessobject['path']
-    if(vmessobject['net']!="ws"):
-        streamSettings.pop('wsSettings')
-    tag="vmess"+str(proxynum)
-    boundobject["tag"]=tag
-    base["outbounds"].append(copy.deepcopy(boundobject))
-    proxynum=proxynum+1
-    proxytaglist.append(tag)
-    line = sys.stdin.readline()
+        boundobject = copy.deepcopy(basebound)
+        vnextone=boundobject["settings"]["vnext"][0]
+        vnextone["address"]=vmessobject['add']
+        vnextone["port"]=int(vmessobject['port'])
+        vnextone["users"][0]['alterId']=int(vmessobject['aid'])
+        vnextone["users"][0]['id']=vmessobject['id']
+        streamSettings=boundobject["streamSettings"]
+        streamSettings["network"]=vmessobject['net']
+        if(vmessobject['net']=="ws"):
+            streamSettings["wsSettings"]["path"]=vmessobject['path']
+        if(vmessobject['net']!="ws"):
+            streamSettings.pop('wsSettings')
+        tag="vmess"+str(proxynum)
+        boundobject["tag"]=tag
+        base["outbounds"].append(copy.deepcopy(boundobject))
+        proxynum=proxynum+1
+        proxytaglist.append(tag)
+        line = sys.stdin.readline()
+    except:
+        fuck="fuck"
+        line = sys.stdin.readline()
+        continue
+        
+
 
 base["routing"]['balancers'][0]["selector"]=proxytaglist
 print(json.dumps(base,sort_keys=True, indent=4, separators=(',', ':')))
