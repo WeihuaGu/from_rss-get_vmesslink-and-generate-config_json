@@ -1,0 +1,8 @@
+#!/bin/sh
+#Megasaturnv 2017-07-28
+#Url of the RSS feed
+path=`dirname $0`
+URL=$(cat $path/SUB)
+
+curl --silent "$URL" | base64 -d
+

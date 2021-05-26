@@ -1,0 +1,10 @@
+#!/bin/sh
+
+path=`dirname $0`
+if [ x$1 != x ]
+then
+	$path/getsubtovmess | $path/getlinkjson |  $path/gentarjson > $2
+else
+	$path/getsubtovmess | $path/getlinkjson |  $path/gentarjson > config.json
+fi
+
