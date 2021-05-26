@@ -1,0 +1,11 @@
+#!/bin/sh
+baseurl="https://www.mattkaydiary.com"
+year=$(date  "+%Y")
+mon=$(date  "+%m")
+day=$(date -d yesterday "+%Y-%m-%d")
+url=$baseurl/$year/$mon/$day"-free-v2ray-clash-link.html"
+echo $url
+
+
+
+

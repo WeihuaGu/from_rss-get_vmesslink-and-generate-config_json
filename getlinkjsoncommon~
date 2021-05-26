@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*- 
+import base64
+import sys
+import re
+import requests    #requests是HTTP库
+from bs4 import BeautifulSoup as bs
+def decode_base64(strg):
+    """Decode base64, padding being optional.
+
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    """
+    lens = len(strg)
+    lenx = lens - (lens % 4 if lens % 4 else 4)
+    result = base64.decodestring(strg[:lenx])
+    return result
+
+v2flag='"v":"2"'
+url = sys.stdin.readline()
+print(url)
+html = requests.get(url).text
+print(html)
+soup = bs(html,features="html.parser")   # lxml解析器解析字节形式的数据，得到完整的类似页面的html代码结构的数据
+vmesslist = soup.findall('div')
+for i in range(len(vmesslist)):
+    json=''
+    line=vmesslist[i].text
+    vmessuri=re.search('vmess://([a-zA-Z0-9=]+)', line)
+    if(vmessuri!=None):
+        base64str=vmessuri.group(1)
+        jsonstr = decode_base64(base64str)
+        if(v2flag in jsonstr):
+            json=jsonstr+'}'
+        else:
+            json=jsonstr+'"}'
+        print(json)
